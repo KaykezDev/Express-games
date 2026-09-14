@@ -1,5 +1,7 @@
 from django.shortcuts import render
+from jogos.models import Jogo
 
-# Create your views here.
+
 def home_view(request):
-    return render(request, 'app/home.html')
+    jogos_destaque = Jogo.objects.all().order_by('-id')[:12]
+    return render(request, 'app/home.html', {'jogos_destaque': jogos_destaque})
