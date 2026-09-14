@@ -773,3 +773,108 @@ form input[type="radio"] {
 ::-webkit-scrollbar-thumb:hover {
   background-color: var(--cor-rosa);
 }
+
+/* ==========================================================================
+   16. Carrossel de destaques (home) - efeito coverflow
+   ========================================================================== */
+
+.carousel-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.jogos-swiper {
+  padding: 2rem 0.5rem 2.5rem;
+  --swiper-navigation-color: var(--cor-preto);
+  --swiper-navigation-size: 16px;
+}
+
+.jogos-swiper .swiper-slide {
+  width: 230px;
+  transition: filter 0.2s ease, opacity 0.2s ease;
+}
+
+.jogo-slide-link {
+  display: block;
+  border: 1px solid var(--cor-preto);
+  border-radius: var(--raio-borda-lg);
+  overflow: hidden;
+  background-color: var(--cor-branco);
+  color: var(--cor-preto);
+  box-shadow: var(--sombra-suave);
+}
+
+.jogo-slide-link:hover {
+  text-decoration: none;
+  color: var(--cor-preto);
+}
+
+.jogo-slide-img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  display: block;
+}
+
+.jogo-slide-img-placeholder {
+  background-color: var(--cor-preto);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.jogo-slide-img-placeholder span {
+  color: var(--cor-branco);
+  font-size: 2.5rem;
+  font-weight: 800;
+}
+
+.jogo-slide-nome {
+  font-weight: 700;
+  padding: 0.75rem 0.85rem 0;
+  margin-bottom: 0.15rem;
+}
+
+.jogo-slide-preco {
+  color: var(--cor-rosa);
+  font-weight: 700;
+  padding: 0 0.85rem 0.85rem;
+  margin-bottom: 0;
+}
+
+/* Setas - forçando sobrescrever o padrão azul do Swiper */
+.jogos-swiper-prev,
+.jogos-swiper-next {
+  color: var(--cor-preto) !important;
+  background-color: var(--cor-branco) !important;
+  border: 1px solid var(--cor-preto) !important;
+  border-radius: var(--raio-borda) !important;
+  width: 40px !important;
+  height: 40px !important;
+  margin-top: -20px !important;
+  box-shadow: var(--sombra-suave);
+}
+
+.jogos-swiper-prev::after,
+.jogos-swiper-next::after {
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+  color: var(--cor-preto) !important;
+}
+
+.jogos-swiper-prev:hover,
+.jogos-swiper-next:hover {
+  background-color: var(--cor-rosa) !important;
+  border-color: var(--cor-rosa) !important;
+}
+
+.jogos-swiper .swiper-slide {
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.jogos-swiper .swiper-slide {
+  cursor: pointer;
+}

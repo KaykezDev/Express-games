@@ -12,6 +12,39 @@
     <a href="{% url 'jogos:lista' %}" class="btn btn-primary btn-lg mt-3">Ver catálogo</a>
 </section>
 
+<section class="carousel-section my-5">
+    <div class="carousel-section-header">
+        <h2>Destaques do catálogo</h2>
+        <a href="{% url 'jogos:lista' %}" class="btn btn-outline-dark btn-sm">Ver catálogo todo</a>
+    </div>
+
+    {% if jogos_destaque %}
+    <div class="swiper jogos-swiper">
+        <div class="swiper-wrapper">
+            {% for jogo in jogos_destaque %}
+            <div class="swiper-slide" data-url="{% url 'jogos:detalhe' jogo.pk %}">
+                <div class="jogo-slide-link">
+                    {% if jogo.imagem %}
+                        <img src="{{ jogo.imagem.url }}" alt="{{ jogo.nome }}" class="jogo-slide-img">
+                    {% else %}
+                        <div class="jogo-slide-img jogo-slide-img-placeholder">
+                            <span>{{ jogo.nome|first|upper }}</span>
+                        </div>
+                    {% endif %}
+                    <p class="jogo-slide-nome">{{ jogo.nome }}</p>
+                    <p class="jogo-slide-preco">R$ {{ jogo.preco }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="swiper-button-prev jogos-swiper-prev"></div>
+        <div class="swiper-button-next jogos-swiper-next"></div>
+    </div>
+    {% else %}
+        <div class="empty-state">Nenhum jogo cadastrado ainda.</div>
+    {% endif %}
+</section>
+
 <section class="feature-grid row row-cols-1 row-cols-md-3 g-3 my-4">
     <div class="col">
         <div class="feature-card">
@@ -44,4 +77,55 @@
 </section>
 {% endif %}
 
+{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+    new Swiper('.jogos-swiper', {
+        effect: 'coverflow',
+        centeredSlides: true,
+        slidesPerView: 'auto',
+        rewind: true,
+        autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+        },
+        coverflowEffect: {
+            rotate: 0,
+            stretch: 0,
+            depth: 200,
+            modifier: 1.4,
+            slideShadows: false,
+        },
+        navigation: {
+            nextEl: '.jogos-swiper-next',
+            prevEl: '.jogos-swiper-prev',
+        },
+        on: {
+            progress: function () {
+                this.slides.forEach((slide) => {
+                    const dist = Math.min(Math.abs(slide.progress), 1);
+                    slide.style.filter = `blur(${dist * 1.2}px)`;
+                    slide.style.opacity = 1 - dist * 0.25;
+                });
+            },
+            click: function (swiper) {
+                const index = swiper.clickedIndex;
+                if (index === undefined) return;
+                const slide = swiper.slides[index];
+                if (slide.classList.contains('swiper-slide-active')) {
+                    window.location.href = slide.dataset.url;
+                } else {
+                    swiper.slideTo(index);
+                }
+            }
+        },
+    });
+</script>
 {% endblock %}
