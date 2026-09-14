@@ -154,9 +154,9 @@ hr {
   box-shadow: var(--brilho-rosa);
 }
 
-.navbar-toggler-icon {
+/*.navbar-toggler-icon {
   filter: invert(1) !important;
-}
+}*/
 
 /* ==========================================================================
    3. Mensagens de feedback (django messages)
